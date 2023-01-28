@@ -6,7 +6,6 @@ This week you have two separate parts to work on:
 2. Practicing SQL
 
 Be sure to do both parts!
-
 ---
 
 ## Add the Detail View to our Movie App
@@ -45,6 +44,7 @@ We've added some movie posters in the `public/images` folder, and the database i
 This view is completed already! It displays all of the movies in the movie database. 
 
 - TODO: When a movie poster is clicked, a user should be brought to the `/details` view for that movie.
+    [ ] onClick function, toggle details component or route?
 
 ### Details Page
 

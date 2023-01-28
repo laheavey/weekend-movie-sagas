@@ -30,3 +30,5 @@ function MovieList() {
 }
 
 export default MovieList;
+
+// onClick={}

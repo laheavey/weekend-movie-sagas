@@ -3,10 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App/App.js';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-// Provider allows us to use redux within our react app
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
-// Import saga middleware
 import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
@@ -25,8 +23,7 @@ function* fetchAllMovies() {
 
     } catch {
         console.log('get all error');
-    }
-        
+    }    
 }
 
 // Create sagaMiddleware
@@ -41,6 +38,8 @@ const movies = (state = [], action) => {
             return state;
     }
 }
+
+// Reducer - movieDetails
 
 // Used to store the movie genres
 const genres = (state = [], action) => {
