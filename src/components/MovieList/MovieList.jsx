@@ -10,10 +10,11 @@ import { Link } from 'react-router-dom';
 function MovieList() {
     const dispatch = useDispatch();
     const movies = useSelector(store => store.movies);
+    const genres = useSelector(store => store.genres);
     
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_MOVIES' });
+        dispatch({ type: 'SAGA/FETCH_MOVIES' })
         // console.log(location.pathname);
     }, []);
 

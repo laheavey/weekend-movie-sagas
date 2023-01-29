@@ -11,7 +11,9 @@ import axios from 'axios';
 
 // Create the rootSaga generator function
 function* rootSaga() {
-    yield takeEvery('FETCH_MOVIES', fetchAllMovies);
+    yield takeEvery('SAGA/FETCH_MOVIES', fetchAllMovies);
+    yield takeEvery('SAGA/FETCH_GENRES', fetchAllGenres);
+    yield takeEvery('SAGA/FETCH_DETAILS/:id', fetchDetails);
 }
 
 function* fetchAllMovies() {
@@ -19,12 +21,34 @@ function* fetchAllMovies() {
     try {
         const movies = yield axios.get('/api/movie');
         console.log('get all:', movies.data);
-        yield put({ type: 'SET_MOVIES', payload: movies.data })
-        
+        yield put({ type: 'SET_MOVIES', payload: movies.data})
     } catch {
         console.log('get all error');
     }    
 }
+
+function* fetchAllGenres() {
+    // get all movies from the DB
+    try {
+        const genres = yield axios.get('/api/genre');
+        console.log('get all:', genres.data);
+        yield put({ type: 'SET_GENRES', payload: genres.data})
+    } catch {
+        console.log('get all genres error');
+    }    
+}
+
+function* fetchDetails(action) {
+    console.log(action.payload);
+    try {
+        const details = yield axios.get(`/api/details/${action.payload}`)
+        console.log('get all details:', details.data);
+        yield put({ type: 'SET_DETAILS', payload: details.data})
+    } catch {
+        console.log('get all details error');
+    }    
+
+}    
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
@@ -40,7 +64,7 @@ const movies = (state = [], action) => {
 }
 
 // Reducer - movieDetails
-const movieDetails = (state = [], action) => {
+const details = (state = [], action) => {
     switch (action.type) {
         case 'SET_DETAILS':
             return action.payload;
@@ -63,7 +87,7 @@ const genres = (state = [], action) => {
 const storeInstance = createStore(
     combineReducers({
         movies,
-        movieDetails,
+        details,
         genres,
     }),
     // Add sagaMiddleware to our store

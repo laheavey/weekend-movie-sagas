@@ -16,8 +16,6 @@ router.get('/', (req, res) => {
 
 });
 
-// GET route for movie details? /:id
-
 // POST route 
 router.post('/', (req, res) => {
   console.log(req.body);

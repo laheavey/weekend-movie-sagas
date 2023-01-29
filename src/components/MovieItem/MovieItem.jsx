@@ -1,22 +1,14 @@
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { Link, Redirect, useRouteMatch } from 'react-router-dom';
-import { generatePath } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
-import { useLocation} from 'react-router-dom'
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import MovieDetails from '../MovieDetails/MovieDetails';
+import MovieDescription from './MovieDescription';
 
 export default function MovieItem ({movie}) {
     const [clicked, setClicked] = useState(false);
+
     const toggleDetails = () => {
         setClicked((current) => !current);
     }
-
-    useEffect(() => {
-
-    },)
-    console.log('movie props: ', movie.props)
 
     return (
         <>
@@ -26,17 +18,12 @@ export default function MovieItem ({movie}) {
                 ?
                 <Redirect to={{
                     pathname: `/details/${movie.id}`,
-                    state: {movie: movie}}}
-                    component={MovieDetails} movie={movie} />
+                    state: {movieId: movie.id}}}
+                    component={MovieDescription}/>
                 :
-                // <Link to={`/details/${movie.id}`} >
-                    <img src={movie.poster} alt={movie.title}/>
-                // </Link>
+                <img src={movie.poster} alt={movie.title}/>
                 }
             </div>
-
-                
-            
         </>
     )
 }
