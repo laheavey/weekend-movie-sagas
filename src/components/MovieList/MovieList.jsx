@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './MovieList.css'
 import MovieItem from '../MovieItem/MovieItem';
+import { Link } from 'react-router-dom';
 
 export default function MovieList() {
     const dispatch = useDispatch();
@@ -13,7 +14,10 @@ export default function MovieList() {
 
     return (
         <main>
-            <h1>MovieList</h1>
+            <h2>Movie List</h2>
+            <Link to='/add-movie'>
+            <button>Add a Movie</button>
+            </Link>
             <section className="movies">
                 {movies.map(movie => {
                     return (

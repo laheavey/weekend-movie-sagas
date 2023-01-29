@@ -3,6 +3,7 @@ import './App.css';
 import MovieList from '../MovieList/MovieList';
 import MovieDetail from '../MovieDetail/MovieDetail';
 import AddMovie from '../AddMovie/AddMovie';
+import EditMovie from '../EditMovie/EditMovie';
 
 export default function App() {
   return (
@@ -24,6 +25,10 @@ export default function App() {
           <AddMovie/>
         </Route>
 
+        {/* Edit Movie page */}
+        <Route path="/edit-movie/:id" exact>
+          <EditMovie />
+        </Route>
         
       </Router>
     </div>

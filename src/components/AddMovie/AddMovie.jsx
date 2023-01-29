@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { Link } from 'react-router-dom'
 
 export default function AddMovie () {
     const dispatch = useDispatch();
@@ -11,6 +12,9 @@ export default function AddMovie () {
     const [genreInput, setGenreInput] = useState('');
     const [genreId, setGenreId] = useState('');
     
+    useEffect(() => {
+        dispatch({ type: 'SAGA/FETCH_GENRES'})
+    }, [])
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -35,22 +39,22 @@ export default function AddMovie () {
         dispatch({ 
             type: 'SAGA/ADD_MOVIE', 
             payload: newMovie
-            })
+        })
 
-        console.log(newMovie);
+        clearInputs();
     }
 
-    const handleCancel = () => {
-
+    const clearInputs = () => {
+        setTitleInput('')
+        setPosterInput('')
+        setDescriptionInput('')
+        setGenreInput('')
+        setGenreId('')
     }
-
-    useEffect(() => {
-        dispatch({ type: 'SAGA/FETCH_GENRES'})
-    }, [])
 
     return (
         <>
-        <h2>Submit a Movie!</h2>
+        <h2>Add a Movie</h2>
         <form onSubmit={handleSubmit}>
             <input
             required
@@ -80,6 +84,7 @@ export default function AddMovie () {
            
             <>
             <input
+            required
             placeholder='Genre'
             list='genresList'
             value={genreInput}
@@ -93,15 +98,16 @@ export default function AddMovie () {
                     })}
                 </datalist>
                 </>
-           
-            <button
-            onClick={handleCancel}>
-                Cancel
-            </button>
-            <input
-            type='submit'
-            value='Add New Movie'
-            />
+            <div>
+                <Link to='/'>
+                    <button>
+                        Cancel
+                    </button>
+                </Link>
+                <input type='submit' value='Add New Movie' />
+            </div>
+
+            
         </form>
         </>
         

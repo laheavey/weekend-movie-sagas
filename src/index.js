@@ -15,6 +15,7 @@ function* rootSaga() {
     yield takeEvery('SAGA/FETCH_GENRES', fetchAllGenres);
     yield takeEvery('SAGA/FETCH_DETAIL/:id', fetchDetails);
     yield takeEvery('SAGA/ADD_MOVIE', addMovie);
+    yield takeEvery('SAGA/EDIT_MOVIE/:id', editMovie)
 }
 
 // GET request for all movies:
@@ -57,6 +58,19 @@ function* addMovie(action) {
         console.log('Action.payload: ', action.payload)
     } catch {
         console.log('Error in addMovie')
+    }
+}
+
+function* editMovie(action) {
+    try {
+        yield axios({
+            method: 'PUT',
+            url: `/api/movie/${action.payload.id}`,
+            data: action.payload
+        })
+        console.log('Action.payload: ', action.payload)
+    } catch {
+        console.log('Error in editMovie')
     }
 }
     

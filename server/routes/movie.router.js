@@ -57,4 +57,41 @@ router.post('/', (req, res) => {
   })
 })
 
+router.put('/:id', (req, res) => {
+  console.log('Req.body: ', req.body);
+  // RETURNING "id" will give us back the id of the created movie
+  const insertMovieQuery = `
+  UPDATE "movies" 
+  SET "title"=$1, "poster"=$2, "description"=$3
+  WHERE "id"=$4;`;
+
+  // FIRST QUERY MAKES MOVIE
+  pool.query(insertMovieQuery, [req.body.title, req.body.poster, req.body.description, req.body.id])
+  .then(result => {
+    console.log('Movie table updated')
+
+    // Now handle the genre reference
+    const insertMovieGenreQuery = `
+      UPDATE "movies_genres" 
+      SET "genre_id" = $1
+      WHERE "movie_id" = $2;
+      `
+      // SECOND QUERY ADDS GENRE FOR THAT NEW MOVIE
+      pool.query(insertMovieGenreQuery, [req.body.genre_id, req.body.id])
+      .then(result => {
+        //Now that both are done, send back success!
+        res.sendStatus(201);
+      }).catch(err => {
+        // catch for second query
+        console.log(err);
+        res.sendStatus(500)
+      })
+
+// Catch for first query
+  }).catch(err => {
+    console.log(err);
+    res.sendStatus(500)
+  })
+})
+
 module.exports = router;

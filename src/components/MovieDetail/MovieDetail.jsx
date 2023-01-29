@@ -21,7 +21,7 @@ export default function MovieDetails () {
             if (detail.id == id){
                 return (
                     <section key={detail.id}>
-                        <h3>{detail.title}</h3>
+                        <h2>{detail.title}</h2>
                         <div>
                             <img src={detail.poster} alt={detail.title} height="100px"/>
                             <p>Genre(s): {detail.genre_names}</p>
