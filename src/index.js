@@ -14,6 +14,7 @@ function* rootSaga() {
     yield takeEvery('SAGA/FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('SAGA/FETCH_GENRES', fetchAllGenres);
     yield takeEvery('SAGA/FETCH_DETAIL/:id', fetchDetails);
+    yield takeEvery('SAGA/ADD_MOVIE', addMovie);
 }
 
 // GET request for all movies:
@@ -45,6 +46,19 @@ function* fetchDetails(action) {
         console.log('Error in fetchDetails');
     }    
 };
+
+function* addMovie(action) {
+    try {
+        yield axios({
+            method: 'POST',
+            url: '/api/movie',
+            data: action.payload
+        })
+        console.log('Action.payload: ', action.payload)
+    } catch {
+        console.log('Error in addMovie')
+    }
+}
     
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();

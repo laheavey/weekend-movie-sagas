@@ -2,7 +2,7 @@ import {HashRouter as Router, Route} from 'react-router-dom';
 import './App.css';
 import MovieList from '../MovieList/MovieList';
 import MovieDetail from '../MovieDetail/MovieDetail';
-import MovieDescription from '../MovieItem/MovieDescription'
+import AddMovie from '../AddMovie/AddMovie';
 
 export default function App() {
   return (
@@ -14,16 +14,17 @@ export default function App() {
           <MovieList />
         </Route>
 
-        <Route path="/detail/:id" exact>
-          <MovieDescription />
-        </Route>
-
         {/* Details page */}
-        <Route path="/detail/" exact>
-          <MovieDetail/>
+        <Route path="/detail/:id" exact>
+        <MovieDetail/>
         </Route>
 
         {/* Add Movie page */}
+        <Route path="/add-movie/" exact>
+          <AddMovie/>
+        </Route>
+
+        
       </Router>
     </div>
   );

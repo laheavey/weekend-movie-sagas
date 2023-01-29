@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import MovieDescription from './MovieDescription';
+import MovieDetail from '../MovieDetail/MovieDetail';
 
 export default function MovieItem ({movie}) {
     const [clicked, setClicked] = useState(false);
@@ -17,7 +17,7 @@ export default function MovieItem ({movie}) {
                 ?
                 <Redirect 
                     to={{pathname: `/detail/${movie.id}`}}
-                    component={MovieDescription}
+                    component={MovieDetail}
                 />
                 :
                 <img src={movie.poster} alt={movie.title}/>

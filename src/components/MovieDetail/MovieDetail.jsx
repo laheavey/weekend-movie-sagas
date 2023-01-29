@@ -1,38 +1,41 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams, Link } from 'react-router-dom';
 
 export default function MovieDetails () {
+    const {id} = useParams();
     const dispatch = useDispatch();
-    const details = useSelector(store => store.details);
+    const details = useSelector((store) => store.details);
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_DETAILS'});
-    }, [])
+        dispatch({ 
+            type: `SAGA/FETCH_DETAIL/:id`,
+            payload: id
+        });
+    }, []);
 
     return (
-        <section>
-            <table>
-                <thead>
-                    <tr>
-                    <th>Poster</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Genre</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {details.map((movie) => {
-                        return (
-                            <tr key={movie.id}>
-                                <td><img src={movie.poster} height="100px"></img></td>
-                                <td>{movie.title}</td>
-                                <td>{movie.description}</td>
-                                <td>{movie.genre_names}</td>
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
-        </section>
+        <>
+        {details.map((detail) => {
+            console.log('detail.id: ', detail.id);
+            if (detail.id == id){
+                return (
+                    <section key={detail.id}>
+                        <h3>{detail.title}</h3>
+                        <div>
+                            <img src={detail.poster} alt={detail.title} height="100px"/>
+                            <p>Genre(s): {detail.genre_names}</p>
+                        </div>
+                        <div>
+                            {detail.description}
+                        </div>
+                        <Link to='/'>
+                            <button>BACK</button>
+                        </Link>
+                    </section>
+                )
+            }
+        })}
+        </>
     )
 }
