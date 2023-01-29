@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import MovieDetails from '../MovieDetails/MovieDetails';
 import MovieDescription from './MovieDescription';
 
 export default function MovieItem ({movie}) {
@@ -8,7 +7,7 @@ export default function MovieItem ({movie}) {
 
     const toggleDetails = () => {
         setClicked((current) => !current);
-    }
+    };
 
     return (
         <>
@@ -16,10 +15,10 @@ export default function MovieItem ({movie}) {
             <div onClick={toggleDetails}>
                 {clicked 
                 ?
-                <Redirect to={{
-                    pathname: `/details/${movie.id}`,
-                    state: {movieId: movie.id}}}
-                    component={MovieDescription}/>
+                <Redirect 
+                    to={{pathname: `/detail/${movie.id}`}}
+                    component={MovieDescription}
+                />
                 :
                 <img src={movie.poster} alt={movie.title}/>
                 }

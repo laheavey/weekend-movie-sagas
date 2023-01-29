@@ -1,19 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('../modules/pool')
+const pool = require('../modules/pool');
 
-// GET route -> 
+// GET route for all movies
 router.get('/', (req, res) => {
-  const query = `SELECT * FROM movies ORDER BY "title" ASC`;
+  // SQL query selects all columns from table "movies"
+  const query = `
+    SELECT * FROM "movies" 
+    ORDER BY "title" ASC;`;
   pool.query(query)
     .then( result => {
       res.send(result.rows);
     })
-    .catch(err => {
-      console.log('ERROR: Get all movies', err);
-      res.sendStatus(500)
+    .catch((error) => {
+      console.log('Error in GET /api/movie: ', error);
+      res.sendStatus(500);
     })
-
 });
 
 // POST route 

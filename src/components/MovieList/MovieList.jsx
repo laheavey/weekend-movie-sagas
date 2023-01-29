@@ -2,20 +2,13 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './MovieList.css'
 import MovieItem from '../MovieItem/MovieItem';
-// import { useLocation, Link } from 'react-router-dom'
 
-import { Link } from 'react-router-dom';
-
-
-function MovieList() {
+export default function MovieList() {
     const dispatch = useDispatch();
     const movies = useSelector(store => store.movies);
-    const genres = useSelector(store => store.genres);
     
-
     useEffect(() => {
         dispatch({ type: 'SAGA/FETCH_MOVIES' })
-        // console.log(location.pathname);
     }, []);
 
     return (
@@ -34,7 +27,3 @@ function MovieList() {
 
     );
 }
-
-export default MovieList;
-
-// onClick={}
